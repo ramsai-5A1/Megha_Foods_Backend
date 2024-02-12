@@ -2,9 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { MongoClient } = require('mongodb');
 const { PORT, MONGODB_URL } = require('./config/ServerConfig');
+const apiRoutes = require('./routes/index');
+const cors = require('cors');
 
 const app = express()
 app.use(bodyParser.json());
+app.use(cors());
+app.use('/api', apiRoutes);
 
 app.get('/basic', (req, res) => {
     res.status(200).json({
@@ -33,4 +37,4 @@ const connectToMongoDb = () => {
         process.exit();
     });
 }
-connectToMongoDb();
+// connectToMongoDb();
